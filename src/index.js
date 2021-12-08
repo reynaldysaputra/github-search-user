@@ -1,17 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import App from './app';
+import { DataIssueProvider } from './context/DataIssueContext';
+import { DataRepoProvider } from './context/DataRepoContext';
+import { DataUsersProvider } from './context/DataUserContext';
+import { FormSearchProvider } from './context/FormSearchContext';
+import { combineProviders } from './utils/combineProviders';
+import './style/index.css';
+
+const Providers = combineProviders([
+  DataUsersProvider,
+  DataRepoProvider,
+  DataIssueProvider,
+  FormSearchProvider
+])
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Providers>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </Providers>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
